@@ -38,6 +38,14 @@ router.get('/', function(req, res, next) {
       add: 'POST /occupations/{occupationId}/professionals',
       update: 'PUT /occupations/{occupationId}/professionals',
       delete: 'DELETE /occupations/{occupationId}/professionals'
+    },
+    medias: {
+      root: '/medias',
+      all: 'GET /medias',
+      id: 'GET /medias/{id}',
+      add: 'POST /medias',
+      update: 'PUT /medias/{id}',
+      delete: 'DELETE /medias/{id}'
     }
   });
 });

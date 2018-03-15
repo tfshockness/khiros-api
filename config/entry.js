@@ -14,6 +14,7 @@ var post = require('../routes/post');
 var carousels = require('../routes/carousel');
 var occupation = require('../routes/occupation');
 var professionals = require('../routes/professional');
+var medias = require('../routes/media');
 
 var app = express();
 
@@ -26,6 +27,7 @@ app.use(cookieParser());
 app.use('/', home);
 app.use('/users', users);
 app.use('/posts', post);
+app.use('/medias', medias);
 app.use('/carousels', carousels);
 app.use('/occupations', occupation);
 app.use('/occupations/:occupationId/professionals', professionals);

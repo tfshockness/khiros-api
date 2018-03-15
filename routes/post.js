@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
         post = postServices.addPost(req.body);
         res.status(301).redirect(`/posts/${post._id}`);
     } catch (err) {
-        return res.status(403).send({ error: "err" });
+        return res.status(403).send({ error: err });
     }
 });
 
