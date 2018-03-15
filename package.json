@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prestart": "echo Server running...",
-    "start": "nodemon ./bin/server.js",
+    "start": "nodemon ./app.js",
     "test": "mocha ./**/**/*.test.js  ./test/*.test.js --recursive"
   },
   "dependencies": {

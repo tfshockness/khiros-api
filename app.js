@@ -1,51 +1,91 @@
-var express = require('express');
-var path = require('path');
-//var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+#!/usr/bin/env node
 
-mongoose.connect('mongodb://admin:1234Abcd@khiros-shard-00-00-hkxgz.mongodb.net:27017,khiros-shard-00-01-hkxgz.mongodb.net:27017,khiros-shard-00-02-hkxgz.mongodb.net:27017/test?ssl=true&replicaSet=khiros-shard-0&authSource=admin');
+/**
+ * Module dependencies.
+ */
 
-var home = require('./routes/home');
-var users = require('./routes/users');
-var post = require('./routes/post');
-var carousels = require('./routes/carousel');
-var occupation = require('./routes/occupation');
-var professionals = require('./routes/professional');
+var app = require('./config/entry');
+var debug = require('debug')('server:server');
+var http = require('http');
 
-var app = express();
+/**
+ * Get port from environment and store in Express.
+ */
 
+var port = normalizePort(process.env.PORT || '3001');
+app.set('port', port);
 
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+/**
+ * Create HTTP server.
+ */
 
-app.use('/', home);
-app.use('/users', users);
-app.use('/posts', post);
-app.use('/carousels', carousels);
-app.use('/occupations', occupation);
-app.use('/occupations/:occupationId/professionals', professionals);
+var server = http.createServer(app);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+/**
+ * Listen on provided port, on all network interfaces.
+ */
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
 
-  // render the error page
-  res.status(err.status || 500);
-  res.send({error: 'Page Not Found'});
-});
+/**
+ * Normalize a port into a number, string, or false.
+ */
 
-module.exports = app;
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+  console.log(`Server is running on ${addr.address}:${addr.port}`);
+}
