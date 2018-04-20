@@ -68,11 +68,11 @@ export default {
         }
     ],
 
-    professionals: [
+    occupation: [
         {
             id: 1,
             categoryName: "Doctor",
-            members: [
+            professionals: [
                 {
                     id: 1,
                     name: "Timoteo Shockness",
