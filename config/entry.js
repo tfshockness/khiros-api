@@ -10,6 +10,10 @@ const session = require('express-session');
 const redisClient = require('redis').createClient();
 const RedisStore = require('connect-redis')(session);
 
+//Auth
+const passport = require('passport');
+
+
 
 
 mongoose.connect('mongodb://admin:1234Abcd@khiros-shard-00-00-hkxgz.mongodb.net:27017,khiros-shard-00-01-hkxgz.mongodb.net:27017,khiros-shard-00-02-hkxgz.mongodb.net:27017/test?ssl=true&replicaSet=khiros-shard-0&authSource=admin');
@@ -27,6 +31,8 @@ var app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+//Session and Auth Setups
 app.use(cookieParser());
 app.use(session({
     secret: 'mycrazypassword',
@@ -36,7 +42,10 @@ app.use(session({
       client: redisClient
     })
 }));
+app.use(passport.initialize());
+app.use(passport.session());
 
+//Routers middleware
 app.use('/', home);
 app.use('/users', users);
 app.use('/posts', post);

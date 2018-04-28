@@ -20,6 +20,7 @@ router.post('/', (req, res) => {
 
     try {
         occupationWithProfessional = occupationServices.addProfessional(req.params.occupationId, req.body);
+        // WHAT IS THAT????  I HAVE NO IDEA WHAT IS GOING ON HERE<< CHECK IT PLEASE <<
         res.status(301).redirect(`/occupations/${req.params.occupationId}/professionals/${req.body.fudeu}`)
     } catch (error) {
         res.status(400).send({ error: "FAILED!" });
