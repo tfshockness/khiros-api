@@ -5,6 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+//Session
+const session = require('express-session');
+const redisClient = require('redis').createClient();
+const RedisStore = require('connect-redis')(session);
+
+
 
 mongoose.connect('mongodb://admin:1234Abcd@khiros-shard-00-00-hkxgz.mongodb.net:27017,khiros-shard-00-01-hkxgz.mongodb.net:27017,khiros-shard-00-02-hkxgz.mongodb.net:27017/test?ssl=true&replicaSet=khiros-shard-0&authSource=admin');
 
@@ -18,11 +24,18 @@ var medias = require('../routes/media');
 
 var app = express();
 
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({
+    secret: 'mycrazypassword',
+    resave: false,
+    saveUninitialized: false,
+    store: new RedisStore({
+      client: redisClient
+    })
+}));
 
 app.use('/', home);
 app.use('/users', users);
