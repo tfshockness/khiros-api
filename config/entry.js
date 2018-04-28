@@ -12,13 +12,13 @@ const RedisStore = require('connect-redis')(session);
 
 //Auth
 const passport = require('passport');
-const setUpPassport = require('../config/setupPassport');
+//const setUpPassport = require('../config/setupPassport');
 
 
 
 
 mongoose.connect('mongodb://admin:1234Abcd@khiros-shard-00-00-hkxgz.mongodb.net:27017,khiros-shard-00-01-hkxgz.mongodb.net:27017,khiros-shard-00-02-hkxgz.mongodb.net:27017/test?ssl=true&replicaSet=khiros-shard-0&authSource=admin');
-setUpPassport();
+//setUpPassport();
 
 var home = require('../routes/home');
 var users = require('../routes/users');

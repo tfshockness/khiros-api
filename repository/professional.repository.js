@@ -1,7 +1,7 @@
 let Professional = require('../models/professional.model');
 
 class ProfessionalRepository{
-    add({name, speciality, profileImg, credentials, bio, isActive}){
+    async add({name, speciality, profileImg, credentials, bio, isActive}){
         let newProfessional = new Professional(
             {
                 name,
@@ -12,13 +12,13 @@ class ProfessionalRepository{
                 isActive
             }
         );
-        newProfessional.save(err => {
+        const res = await newProfessional.save(err => {
             if(err) throw err;
             //Or maybe return the error????
 
         });
 
-        return newProfessional;
+        return res;
     }
 
     getAll(){

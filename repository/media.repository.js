@@ -2,7 +2,7 @@ var Media = require('../models/media.model');
 
 class MediaRepository{
 
-    add({title, url, cover, isActive}){
+   async add({title, url, cover, isActive}){
         let newMedia = new Media({
             title,
             url,
@@ -10,11 +10,11 @@ class MediaRepository{
             isActive
         });
 
-        newMedia.save( err => {
+       const res = await newMedia.save( err => {
             if(err) throw err;
         });
 
-        return newMedia;
+        return res;
     }
 
     getAll(){

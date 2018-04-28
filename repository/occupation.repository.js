@@ -1,17 +1,17 @@
 let Occupation = require('../models/occupation.model');
 
 class OccupationRepository{
-    add({occupationName}){
+    async add({occupationName}){
 
         let newOccupation = new Occupation({
             occupationName
         });
         
-        newOccupation.save(err => {
+        const res = await newOccupation.save(err => {
             if(err) throw err;
         });
 
-        return newOccupation;
+        return res;
     }
 
     getAll(){

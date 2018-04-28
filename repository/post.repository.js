@@ -2,7 +2,7 @@ var Post = require('../models/post.model');
 
 class PostRepository{
 
-    add({ title, subtitle, category, text, image, status, publishedAt }) {
+    async add({ title, subtitle, category, text, image, status, publishedAt }) {
         let newPost = new Post(
             {
                 title,
@@ -14,10 +14,10 @@ class PostRepository{
                 publishedAt
             });
 
-        newPost.save(err => {
+        const res = await newPost.save(err => {
             if (err) throw err;
         });
-        return newPost;
+        return res;
     }
 
     getAll() {

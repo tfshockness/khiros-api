@@ -2,7 +2,7 @@ const Company = require('../models/company.model');
 
 class CompanyRepository{
     
-    addCompany({name, email, logoImage, branch = [], about, aboutImage}){
+    async addCompany({name, email, logoImage, branch = [], about, aboutImage}){
         let company = new Company({
             name,
             email,
@@ -12,15 +12,15 @@ class CompanyRepository{
             aboutImage
         });
 
-        company.save(err => {
+       const res = await company.save(err => {
             if (err) throw err;
         });
 
         if(branch.length > 0){
-            this.addBranch(compay._id, branch);
+            this.addBranch(res._id, branch);
         };
 
-        return company;
+        return res;
     }
 
     addBranch(companyId, branch){
