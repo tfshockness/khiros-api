@@ -20,8 +20,8 @@ var branchSchema = new Schema({
 });
 
 var companySchema = new Schema({
-    name: String,
-    email: String,
+    name: {type: String, required: true},
+    email: {type: String, required: true},
     logoImage: String,
     branch: [branchSchema],
     about: String,

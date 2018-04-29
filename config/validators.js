@@ -2,44 +2,44 @@ const { postForm } = require('../lookup/validationMessages');
 
 const isEmpty = val => typeof(val) === "string" && val.trim().length > 1;
 
-exports.titleValidator =[
-    function(val){
-        return isEmpty(val);
+exports.titleValidator = {
+    validator: function(val){
+        return val && isEmpty(val);
     },
-    postForm.title.pt
-];
+    message: postForm.title.pt
+};
 
-exports.subtitleValidator = [
-    function(val){
-        return isEmpty(val);
+exports.subtitleValidator = {
+    validator: function(val){
+        return val && isEmpty(val);
     },
-    postForm.subtitle.pt
-];
+    message: postForm.subtitle.pt
+};
 
-exports.textValidator = [
-    function(val){
-        return isEmpty(val);
+exports.textValidator = {
+    validator: function(val){
+        return val && isEmpty(val);
     },
-    postForm.text.pt
-];
+    message: postForm.text.pt
+};
 
-exports.imageValidator = [
-    function(val){
-        return isEmpty(val);
+exports.imageValidator = {
+    validator: function(val){
+        return val && isEmpty(val);
     },
-    postForm.image.pt
-];
+    message: postForm.image.pt
+};
 
-exports.statusValidator = [
-    function(val){
-        return isEmpty(val);
+exports.statusValidator = {
+    validator: function(val){
+        return  val && isEmpty(val);
     },
-    postForm.status.pt
-];
+    message:postForm.status.pt
+};
 
-exports.categoryValidator = [
-    function(val){
-        return isEmpty(val);
+exports.categoryValidator = {
+    validator: function(val){
+        return  val && isEmpty(val);
     },
-    postForm.category.pt
-]
+    message: postForm.category.pt
+};
