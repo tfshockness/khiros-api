@@ -13,8 +13,15 @@ class MediaRepository{
        return newMedia.save();
     }
 
-    getAll(){
-        return Media.find();
+    /**
+     * 
+     * @param {Number} pageNumber Current Page
+     * @param {Number} PageSize  Size of records for the current Page
+     */
+    getAll(pageNumber, pageSize){
+        return Media.find()
+                    .skip( (pageNumber - 1) * pageSize)
+                    .limit(pageSize);
     }
 
     getById(id){

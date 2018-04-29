@@ -18,6 +18,11 @@ class PostRepository{
 
     }
 
+    /**
+     * 
+     * @param {Number} pageNumber Current Page
+     * @param {Number} PageSize  Size of records for the current Page
+     */
     getAll(pageNumber, pageSize) {
         return Post.find()
                     .skip( (pageNumber - 1) * pageSize)

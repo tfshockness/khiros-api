@@ -17,6 +17,11 @@ class CarouselRepository {
         return newCarousel.save();
     }
 
+     /**
+     * 
+     * @param {Number} pageNumber Current Page
+     * @param {Number} PageSize  Size of records for the current Page
+     */
     getAll(pageNumber, pageSize){
         return Carousel.find()
                         .skip((pageNumber - 1) * pageSize)
