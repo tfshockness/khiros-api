@@ -1,12 +1,22 @@
 var express = require('express');
 var router = express.Router();
 const carouselServices = require('../services/carousel.services');
+const Pagination = require('../util/Pagination');
 /**
  * Get all carousel (Adds)
  */
 
  //TODO Implment Pagination
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    try {
+        const pagination = Pagination.getPagination(req.query.page, req.query.size);
+
+        const carousel = await carouselServices.getAllCarousel(pagination.page, pagination.size);
+
+        res.status().send();
+    } catch (error) {
+        res.status(400).send({error: error || error.message});
+    }
     carouselServices.getAllCarousel()
                     .then( allCarousel => res.status(200).send(allCarousel))
                     .catch( error => res.status(400).send({error: error}));
@@ -15,10 +25,10 @@ router.get('/', (req, res) => {
 /**
  * Add a new Carousel
  */
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     let carousel;
     try{
-        carousel = carouselServices.addCarousel(req.body);
+        carousel = await carouselServices.addCarousel(req.body);
         res.status(301).redirect(`/carousels/${carousel._id}`);
     }catch(err){
         res.status(403).send({ error: err });

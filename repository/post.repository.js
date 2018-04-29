@@ -2,7 +2,7 @@ var Post = require('../models/post.model');
 
 class PostRepository{
 
-    async add({ title, subtitle, category, text, image, status, publishedAt }) {
+    add({ title, subtitle, category, text, image, status, publishedAt }) {
         let newPost = new Post(
             {
                 title,
@@ -14,14 +14,14 @@ class PostRepository{
                 publishedAt
             });
 
-        const res = await newPost.save(err => {
-            if (err) throw err;
-        });
-        return res;
+        return newPost.save();
+
     }
 
-    getAll() {
-        return Post.find();
+    getAll(pageNumber, pageSize) {
+        return Post.find()
+                    .skip( (pageNumber - 1) * pageSize)
+                    .limit(pageSize);
     }
 
     getById(id){

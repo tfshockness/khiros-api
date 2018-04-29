@@ -1,4 +1,5 @@
 var postRepository = require('../repository/post.repository');
+const { PAGE, SIZE } = require('../config/constants');
 
 
 class PostServices{
@@ -8,8 +9,8 @@ class PostServices{
 
     }
 
-    getAllPost(){
-        return postRepository.getAll();
+    getAllPost(pageNumber = PAGE , pageSize = SIZE){
+        return postRepository.getAll(pageNumber, pageSize);
      }
 
      getPostById(id){

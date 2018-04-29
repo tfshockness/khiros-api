@@ -3,6 +3,7 @@ var router = express.Router();
 const mediaServices = require('../services/media.services');
 
 router.get('/', (req, res) => {
+    
     const media = mediaServices.getAllMedia();
 
     media.then( allMedia => res.status(200).send(allMedia)).
@@ -10,14 +11,19 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/', (req, res) => {
-
+router.post('/', async (req, res) => {
     let media;
+
     try{
-        media = mediaServices.addMedia(req.body);
+
+        media = await mediaServices.addMedia(req.body);
+
         res.status(301).redirect(`/medias/${media._id}`);
+
     }catch(err){
+
         return res.status(403).send({ error: err});
+
     }
 });
 

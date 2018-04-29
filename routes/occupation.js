@@ -9,10 +9,10 @@ router.get('/', (req, res) => {
                         .catch(error => res.status(400).send({error: error}));
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     let occupation;
     try{
-        occupation = occupationServices.addOccupation(req.body);
+        occupation = await occupationServices.addOccupation(req.body);
         res.status(301).redirect(`/occupations/${occupation._id}`);
     }catch(err){
         res.status(400).send({ error: err});

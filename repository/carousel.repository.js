@@ -2,7 +2,7 @@ var Carousel = require('../models/carousel.model');
 
 class CarouselRepository {
 
-    async add({image, title, link, isActive}){
+    add({image, title, link, isActive}){
 
         let newCarousel = new Carousel({
             image,
@@ -14,15 +14,13 @@ class CarouselRepository {
             isActive
         });
 
-        const res = await newCarousel.save(err => {
-            if(err) throw err;
-        });
-
-        return res;
+        return newCarousel.save();
     }
 
-    getAll(){
-        return Carousel.find();
+    getAll(pageNumber, pageSize){
+        return Carousel.find()
+                        .skip((pageNumber - 1) * pageSize)
+                        .limit(pageSize);
     }
 
     getById(id){

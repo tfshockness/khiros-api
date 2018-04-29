@@ -7,11 +7,8 @@ class OccupationRepository{
             occupationName
         });
         
-        const res = await newOccupation.save(err => {
-            if(err) throw err;
-        });
+       return newOccupation.save();
 
-        return res;
     }
 
     getAll(){

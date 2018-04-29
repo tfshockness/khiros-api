@@ -2,29 +2,38 @@ var express = require('express');
 var router = express.Router();
 //var Post = require('../models/post.model');
 const postServices = require('../services/post.services');
-
+const PostListViewModel = require('../viewModels/PostListViewModel');
+const Pagination = require('../util/Pagination');
 /**
  * Get All Posts
  */
 
  //TODO Implement Pagination
-router.get('/', (req, res) => {
-    const posts = postServices.getAllPost();
-    
-    posts.then( allPost => res.status(200).send(allPost))
-         .catch(error => res.status(400).send({error: error}))
+router.get('/', async (req, res) => {
+    try {
+
+        const pagination = Pagination.getPagination(req.query.page, req.query.size);
+
+        const posts = await postServices.getAllPost(pagination.page, pagination.size);
+
+        res.status(200).send(new PostListViewModel(posts, pagination.page, pagination.size));
+
+    } catch (error) {
+
+        res.status(400).send({error: error || error.message})
+    }     
 });
 
 /**
  * Add a New Post
  */
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     let post;
     try {
-        post = postServices.addPost(req.body);
+        post = await postServices.addPost(req.body);
         res.status(301).redirect(`/posts/${post._id}`);
     } catch (err) {
-        return res.status(403).send({ error: err });
+        return res.status(403).send({ error: err || err.message });
     }
 });
 

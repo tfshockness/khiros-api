@@ -15,11 +15,11 @@ router.get('/', (req, res) => {
 /**
  * Add a new Professional
  */
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     let occupationWithProfessional;
 
     try {
-        occupationWithProfessional = occupationServices.addProfessional(req.params.occupationId, req.body);
+        occupationWithProfessional = await occupationServices.addProfessional(req.params.occupationId, req.body);
         // WHAT IS THAT????  I HAVE NO IDEA WHAT IS GOING ON HERE<< CHECK IT PLEASE <<
         res.status(301).redirect(`/occupations/${req.params.occupationId}/professionals/${req.body.fudeu}`)
     } catch (error) {
