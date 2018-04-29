@@ -1,13 +1,17 @@
 const BaseListViewModel = require('./BaseListViewModel');
 
-class CarouselListViewModel extends BaseListViewModel{
+module.exports = class CarouselListViewModel extends BaseListViewModel{
     
+    /**
+     * 
+     * @param {Array} carouselList - Array with Carousels
+     * @param {Number} page - Interger, Number of current Page
+     * @param {Number} size - Integer, Number of Records in the Current Page
+     */
     constructor(carouselList, page, size){
         super(page, size);
-        this.data = {
-            page = this.page,
-            size = this.size,
-            list: carouselList
-        }
+        
+        this.data.list = carouselList;
     }
+
 }

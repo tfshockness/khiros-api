@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const carouselServices = require('../services/carousel.services');
+const CarouselListViewModel = require('../viewModels/CarouselListViewModel');
 const Pagination = require('../util/Pagination');
 /**
  * Get all carousel (Adds)
@@ -11,15 +12,12 @@ router.get('/', async (req, res) => {
     try {
         const pagination = Pagination.getPagination(req.query.page, req.query.size);
 
-        const carousel = await carouselServices.getAllCarousel(pagination.page, pagination.size);
+        const carousels = await carouselServices.getAllCarousel(pagination.page, pagination.size);
 
-        res.status().send();
+        res.status(200).send(new CarouselListViewModel(carousels, pagination.page, pagination.size));
     } catch (error) {
-        res.status(400).send({error: error || error.message});
+        res.status(400).send({error: error.message});
     }
-    carouselServices.getAllCarousel()
-                    .then( allCarousel => res.status(200).send(allCarousel))
-                    .catch( error => res.status(400).send({error: error}));
 });
 
 /**
