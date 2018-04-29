@@ -1,5 +1,4 @@
 const carouselRepository = require('../repository/carousel.repository');
-const { PAGE, SIZE } = require('../config/constants');
 
 class CarouselServices {
     addCarousel({image, title, link, isActive}){
@@ -11,7 +10,7 @@ class CarouselServices {
      * @param {Number} pageNumber Current Page
      * @param {Number} PageSize  Size of records for the current Page
      */
-    getAllCarousel(pageNumber = PAGE, PageSize = SIZE){
+    getAllCarousel(pageNumber , PageSize ){
         return carouselRepository.getAll(pageNumber, PageSize);
     }
 

@@ -1,13 +1,23 @@
 var express = require('express');
 var router = express.Router();
 const mediaServices = require('../services/media.services');
+const MediaListViewModel = require('../viewModels/MediaListViewModel');
+const Pagination = require('../util/Pagination');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+    try {
+        
+        const pagination = Pagination.getPagination(req.query.page, req.query.size);
+
+        const medias = await mediaServices.getAllMedia(pagination.page, pagination.size);
+
+        res.status(200).send(new MediaListViewModel(medias, pagination.page, pagination.size));
+
+    } catch (error) {
+        
+        res.status(400).send({ error: error.message});
+    }
     
-    const media = mediaServices.getAllMedia();
-
-    media.then( allMedia => res.status(200).send(allMedia)).
-            catch(error => res.status(400).send({error: error}))
 });
 
 

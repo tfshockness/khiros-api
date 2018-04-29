@@ -1,5 +1,4 @@
 var postRepository = require('../repository/post.repository');
-const { PAGE, SIZE } = require('../config/constants');
 
 
 class PostServices{
@@ -9,7 +8,12 @@ class PostServices{
 
     }
 
-    getAllPost(pageNumber = PAGE , pageSize = SIZE){
+    /**
+     * 
+     * @param {Number} pageNumber Current Page
+     * @param {Number} PageSize  Size of records for the current Page
+     */
+    getAllPost(pageNumber , pageSize){
         return postRepository.getAll(pageNumber, pageSize);
      }
 

@@ -1,4 +1,4 @@
-
+const { PAGE, SIZE } = require('../config/constants'); 
 class Pagination{
     /**
      * 
@@ -7,8 +7,8 @@ class Pagination{
      */
     static getPagination(page, size){
         return {
-            page: ( !isNaN(page) ) ? parseInt(page) : undefined,
-            size: ( !isNaN(size) ) ? parseInt(size) : undefined
+            page: ( !isNaN(page) ) ? parseInt(page) : PAGE,
+            size: ( !isNaN(size) ) ? parseInt(size) : SIZE
         }
     }
 }

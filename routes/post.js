@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-//var Post = require('../models/post.model');
 const postServices = require('../services/post.services');
 const PostListViewModel = require('../viewModels/PostListViewModel');
 const Pagination = require('../util/Pagination');

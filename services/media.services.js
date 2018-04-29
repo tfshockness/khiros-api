@@ -6,8 +6,13 @@ class MediaServices{
         return mediaRepository.add({title, url, cover, isActive});
     }
 
-    getAllMedia(){
-        return mediaRepository.getAll();
+    /**
+     * 
+     * @param {Number} pageNumber Current Page
+     * @param {Number} PageSize  Size of records for the current Page
+     */
+    getAllMedia(pageNumber, pageSize){
+        return mediaRepository.getAll(pageNumber, pageSize);
     }
 
     getMediaById(id){

@@ -5,7 +5,8 @@ class BaseListViewModel{
     constructor(page = PAGE, size = SIZE){
         this.data = {
             page : page,
-            size: size
+            size: size,
+            list: []
         };
     }
 
